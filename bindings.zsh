@@ -15,19 +15,30 @@ ZVM_VI_HIGHLIGHT_EXTRASTYLE=none
 # zsh-vi-mode resets all bindings on init, so custom bindings
 # must be registered via this hook to survive.
 zvm_after_init() {
-  # Ctrl+Right -> move forward one word (^[[1;5C is the terminal escape code)
+  # Ctrl+Right / Ctrl+Left
   bindkey '^[[1;5C' forward-word
-
-  # Ctrl+Left -> move backward one word (^[[1;5D is the terminal escape code)
   bindkey '^[[1;5D' backward-word
 
   # Ctrl+F -> fzf file picker (no hidden files)
   bindkey '^F' _fzf_file_no_hidden
 
-  # Ctrl+\ -> toggle autosuggestions (useful for screen recordings)
+  # Ctrl+\ -> toggle autosuggestions
   bindkey '^\' autosuggest-toggle
 
-  # Up/Down -> history search by substring (^[[A/^[[B are up/down arrow escape codes)
-  bindkey '^[[A' history-substring-search-up
-  bindkey '^[[B' history-substring-search-down
+  # Up/Down -> history search by substring
+  # Mapeia tanto o modo viins (inserção) quanto vicmd (normal)
+  # e cobre os dois tipos de sequências de escape (^[[A e ^[OA)
+  zvm_bindkey viins '^[[A' history-substring-search-up
+  zvm_bindkey viins '^[OA' history-substring-search-up
+  zvm_bindkey viins '^[[B' history-substring-search-down
+  zvm_bindkey viins '^[OB' history-substring-search-down
+
+  zvm_bindkey vicmd '^[[A' history-substring-search-up
+  zvm_bindkey vicmd '^[OA' history-substring-search-up
+  zvm_bindkey vicmd '^[[B' history-substring-search-down
+  zvm_bindkey vicmd '^[OB' history-substring-search-down
+
+  # Atalhos padrão do Vim no vicmd (opcional: 'k' e 'j' para buscar substring)
+  zvm_bindkey vicmd 'k' history-substring-search-up
+  zvm_bindkey vicmd 'j' history-substring-search-down
 }

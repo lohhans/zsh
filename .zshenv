@@ -28,3 +28,10 @@ export STARSHIP_CONFIG="$ZDOTDIR/starship.toml"
 # ---------- PATH ----------
 # Personal binaries/scripts
 export PATH="$HOME/.local/bin:$PATH"
+# FVM (Flutter Version Management)
+export PATH="$HOME/fvm/bin:$PATH"
+export PATH="$HOME/fvm/default/bin:$PATH"
+# JAVA
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+
